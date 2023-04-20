@@ -1,6 +1,15 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import { useState } from 'react';
+import type { AppProps } from 'next/app';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+  const [client] = useState(() => new QueryClient());
+
+  return (
+    <QueryClientProvider client={client}>
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  );
+};
+
+export default App;
