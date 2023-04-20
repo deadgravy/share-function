@@ -1,0 +1,31 @@
+{
+  "name": "share-function",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prisma": "prisma db push && prisma generate && prisma db seed",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.13.0",
+    "next": "13.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.12",
+    "@types/react": "18.0.37",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1",
+    "typescript": "5.0.4"
+  }
+}
