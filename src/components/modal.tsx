@@ -14,7 +14,7 @@ const ModalPopUp = () => {
       <Button
         variant="outlined"
         onClick={handleOpen}
-        sx={{ display: 'flex', justifyContent: 'left', ml:20 }}
+        sx={{ display: 'flex', justifyContent: 'left', ml: 20 }}
       >
         Share
       </Button>

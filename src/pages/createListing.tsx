@@ -1,4 +1,4 @@
-import { Button, FormLabel, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import DivComponent from '../components/styledDiv';
 import { useState } from 'react';
 import { Listing } from '../types/listing';

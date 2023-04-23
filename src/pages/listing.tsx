@@ -46,9 +46,11 @@ const Listing = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <ModalPopUp/>
+            <ModalPopUp />
             <Link href="/specificListing/[id]">
-              <Button variant='outlined' sx={{ml:1}}>Learn More</Button>
+              <Button variant="outlined" sx={{ ml: 1 }}>
+                Learn More
+              </Button>
             </Link>
           </CardActions>
         </Card>

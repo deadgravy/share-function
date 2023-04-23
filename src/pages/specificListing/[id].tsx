@@ -4,12 +4,11 @@ import { Listing } from '@/types/listing';
 import { Box, Card, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 
-const data : Listing = 
-  {
-    title: 'Listing 1',
-    description: 'Metal bar description 1... goes till very long',
-    price: 400,
-  }
+const data: Listing = {
+  title: 'Listing 1',
+  description: 'Metal bar description 1... goes till very long',
+  price: 400,
+};
 
 const SpecificListing = () => {
   const router = useRouter();
@@ -54,7 +53,7 @@ const SpecificListing = () => {
             {/* <Button sx={{display: 'flex', justifyContent:'left', ml: 19}}>
               Share
             </Button> */}
-            <ModalPopUp/>
+            <ModalPopUp />
           </DivComponent>
         </Card>
       </div>

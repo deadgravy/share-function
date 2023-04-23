@@ -6,7 +6,6 @@ const DivComponent = styled('div')({
   padding: 8,
   borderRadius: 20,
   margin: 2,
-//   textAlign: 'center',
 });
 
 export default DivComponent;
