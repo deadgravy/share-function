@@ -5,8 +5,9 @@ import { Box, Card, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 
 const data: Listing = {
+  id: 1,
   title: 'Listing 1',
-  description: 'Metal bar description 1... goes till very long',
+  description: 'Metal bar description 1',
   price: 400,
 };
 

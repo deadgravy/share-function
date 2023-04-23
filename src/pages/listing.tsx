@@ -14,16 +14,19 @@ import ModalPopUp from '@/components/modal';
 //this is fake data remember to use real data from database by integrating it to the backend
 const listingData: Listing[] = [
   {
+    id: 1,
     title: 'Listing 1',
     description: 'This is a metal bar',
     price: 400,
   },
   {
+    id: 2,
     title: 'Listing 2',
     description: 'Metal bar on sale',
     price: 400,
   },
   {
+    id: 3,
     title: 'Listing 3',
     description: 'Metal bar for sale',
     price: 400,
@@ -47,7 +50,7 @@ const Listing = () => {
           </CardContent>
           <CardActions>
             <ModalPopUp />
-            <Link href="/specificListing/[id]">
+            <Link href={"/specificListing/"+listing.id}>
               <Button variant="outlined" sx={{ ml: 1 }}>
                 Learn More
               </Button>
