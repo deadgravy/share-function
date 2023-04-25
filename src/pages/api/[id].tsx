@@ -1,11 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getListingsFromDatabase } from '../../../prisma/sqlite';
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
 
   try {
-    const listing = await getListingsFromDatabase(parseInt(id as string));
+    const listing = await prisma.listings.findUnique({ where: { id: parseInt(id as string) } });
 
     if (listing) {
       res.status(200).json(listing);
