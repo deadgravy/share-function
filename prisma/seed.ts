@@ -25,7 +25,7 @@ const main = async () => {
 
   const listing2 = await prismaClient.listings.create({
     data: {
-      name: "Selling metal rod",
+      name: "Selling metal rods",
       price: 200.02,
     },
   });
