@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const listing = await prisma.listings.findUnique({ where: { id: parseInt(id as string) } });
 
-    if (listing) {
+    if (listing != null) {
       res.status(200).json(listing);
     } else {
       res.status(404).json({ message: `Listing with ID ${id} not found` });
