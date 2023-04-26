@@ -23,11 +23,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     where: { id: listing.id },
                     data: { hashed_url: hashedUrl }
                 });
+                // Construct the complete URL with the hashed URL appended to the base URL
+                const shortUrl = `http://localhost:3000/${hashedUrl}`;
                 // Return the shortened URL value in the response
-                res.status(200).json({ hashedUrl });
+                res.status(200).json({ hashedUrl: shortUrl });
             } else {
-                // If hashed URL is already present, return it in the response
-                res.status(200).json({ hashedUrl: listing.hashed_url });
+                // If hashed URL is already present, construct the complete URL with the hashed URL appended to the base URL
+                const shortUrl = `http://localhost:3000/${listing.hashed_url}`;
+                // Return the shortened URL value in the response
+                res.status(200).json({ hashedUrl: shortUrl });
             }
         } else {
             // If the listing is not found, return an error message in the response
