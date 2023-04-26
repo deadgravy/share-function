@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { type NextApiRequest, type NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { createHash } from 'crypto';
 
@@ -15,6 +15,11 @@ export default async function handler(
   }
 
   const { url, hashed_url } = req.body;
+
+  if (!url) {
+    res.status(400).send('Bad Request: URL is required');
+    return;
+  }
 
   try {
     let createdUrl;
@@ -33,17 +38,17 @@ export default async function handler(
       responseUrl = { url: createdUrl.url, shortened_url: `https://example.com/${createdUrl.hash}` };
     } else {
       // retrieve the Url record from the database based on the hashed_url parameter
-      const url = await prisma.url.findUnique({
+      const foundUrl = await prisma.url.findUnique({
         where: { hash: hashed_url },
       });
 
-      if (!url) {
+      if (!foundUrl) {
         res.status(404).send('URL not found');
         return;
       }
 
       // construct the response object with both the original URL and the shortened URL
-      responseUrl = { url: url.url, shortened_url: `https://example.com/${url.hash}` };
+      responseUrl = { url: foundUrl.url, shortened_url: `https://example.com/${foundUrl.hash}` };
     }
 
     res.json(responseUrl);

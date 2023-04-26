@@ -1,0 +1,42 @@
+import { PrismaClient } from '@prisma/client';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { nanoid } from 'nanoid'; // Import nanoid library for generating short IDs
+
+const prisma = new PrismaClient(); // Create a Prisma Client instance
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const { query: { id } } = req; // Retrieve the listing ID from the URL query parameter
+
+    try {
+        // Use Prisma Client to query the "listings" model and retrieve the listing
+        const listing = await prisma.listings.findUnique({
+            where: { id: parseInt(id as string) } // Convert the listing ID to an integer
+        });
+
+        if (listing) {
+            // If the listing is found, check if hashed URL is already present
+            if (!listing.hashed_url) {
+                // If hashed URL is not present, generate a shortened URL using nanoid
+                const hashedUrl = nanoid(10); // Generate a 10-character long random ID
+                // Use Prisma Client to update the listing with the shortened URL
+                await prisma.listings.update({
+                    where: { id: listing.id },
+                    data: { hashed_url: hashedUrl }
+                });
+                // Return the shortened URL value in the response
+                res.status(200).json({ hashedUrl });
+            } else {
+                // If hashed URL is already present, return it in the response
+                res.status(200).json({ hashedUrl: listing.hashed_url });
+            }
+        } else {
+            // If the listing is not found, return an error message in the response
+            res.status(404).json({ error: 'Listing not found' });
+        }
+    } catch (error) {
+        // If there's an error, return an error message in the response
+        res.status(500).json({ error: 'Internal server error' });
+    } finally {
+        await prisma.$disconnect(); // Disconnect Prisma Client after using it
+    }
+}
