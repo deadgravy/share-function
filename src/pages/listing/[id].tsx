@@ -12,7 +12,7 @@ const data: IListing = {
   price: 400,
 };
 
-const SpecificListing = (): EmotionJSX.Element => {
+const Listing = (): EmotionJSX.Element => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
@@ -52,9 +52,6 @@ const SpecificListing = (): EmotionJSX.Element => {
             >
               {data.description}
             </Typography>
-            {/* <Button sx={{display: 'flex', justifyContent:'left', ml: 19}}>
-              Share
-            </Button> */}
             <ModalPopUp />
           </DivComponent>
         </Card>
@@ -63,4 +60,4 @@ const SpecificListing = (): EmotionJSX.Element => {
   );
 };
 
-export default SpecificListing;
+export default Listing;

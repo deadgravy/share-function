@@ -23,7 +23,7 @@ const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {},
     redirect: {
-      destination: `http://localhost:3000/listing/${listing.name}-${listing.id}`,
+      destination: `http://localhost:3000/listing/${listing.id}`,
     },
   };
 };

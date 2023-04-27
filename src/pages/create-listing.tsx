@@ -9,12 +9,7 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
-  //   const [file, setFile] = useState(null);
 
-  //   const fileSelected = (event) => {
-  //     const file = event.target.files[0];
-  //     setFile(file);
-  //   };
   return (
     <main>
       <DivComponent className="flex min-h-screen flex-col items-center justify-between p-24">
