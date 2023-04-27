@@ -1,22 +1,26 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { createHash } from 'crypto';
 
+interface ResponseBody {
+  url: string;
+  hashed_url: string;
+}
+
 const prisma = new PrismaClient();
 
-export default async function handler(
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
-) {
+): Promise<void> => {
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed');
     return;
   }
 
-  const { url, hashed_url } = req.body;
+  const { url, hashed_url: hashedUrl }: ResponseBody = req.body;
 
-  if (!url) {
+  if (url === "") {
     res.status(400).send('Bad Request: URL is required');
     return;
   }
@@ -25,7 +29,7 @@ export default async function handler(
     let createdUrl;
     let responseUrl;
 
-    if (!hashed_url) {
+    if (hashedUrl === "") {
       // generate a hash value for the original URL
       const hash = createHash('sha256').update(url).digest('hex').substr(0, 8);
 
@@ -57,3 +61,5 @@ export default async function handler(
     res.status(500).send('Internal server error');
   }
 }
+
+export default handler;

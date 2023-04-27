@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prismaClient: PrismaClient = new PrismaClient();
 
-const main = async () => {
+const main = async (): Promise<void> => {
   console.log("Clearing database...");
 
   await Promise.allSettled([
