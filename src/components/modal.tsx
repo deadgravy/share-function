@@ -1,3 +1,4 @@
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { Button, Modal, Box } from '@mui/material';
 import { useState } from 'react';
 
@@ -5,15 +6,13 @@ const data = {
   link: 'https://www.google.com',
 };
 
-const ModalPopUp = () => {
+const ModalPopUp = (): EmotionJSX.Element => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   return (
     <div>
       <Button
         variant="outlined"
-        onClick={handleOpen}
+        onClick={(): void => { setOpen(true); }}
         sx={{ display: 'flex', justifyContent: 'left', ml: 20 }}
       >
         Share
@@ -21,7 +20,7 @@ const ModalPopUp = () => {
 
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={(): void => { setOpen(false); }}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
@@ -40,7 +39,7 @@ const ModalPopUp = () => {
         >
           <h2 id="child-modal-title">Copy this link</h2>
           <p id="child-modal-description">{data.link}</p>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained" onClick={(): void => { setOpen(false); }}>
             Close
           </Button>
         </Box>

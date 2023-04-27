@@ -1,17 +1,18 @@
 import ModalPopUp from '@/components/modal';
 import DivComponent from '@/components/styledDiv';
-import { Listing } from '@/types/listing';
-import { Box, Card, Typography, Button } from '@mui/material';
+import type { IListing } from '@/types/listing';
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import { Box, Card, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-const data: Listing = {
+const data: IListing = {
   id: 1,
   title: 'Listing 1',
   description: 'Metal bar description 1',
   price: 400,
 };
 
-const SpecificListing = () => {
+const SpecificListing = (): EmotionJSX.Element => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);

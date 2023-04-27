@@ -8,11 +8,12 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import { Listing } from '@/types/listing';
+import type { IListing } from '@/types/listing';
 import ModalPopUp from '@/components/modal';
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
-//this is fake data remember to use real data from database by integrating it to the backend
-const listingData: Listing[] = [
+// this is fake data remember to use real data from database by integrating it to the backend
+const listingData: IListing[] = [
   {
     id: 1,
     title: 'Listing 1',
@@ -32,11 +33,11 @@ const listingData: Listing[] = [
     price: 400,
   },
 ];
-const Listing = () => {
+const Listing = (): EmotionJSX.Element => {
   return (
     <DivComponent>
       {listingData.map((listing) => (
-        <Card sx={{ width: 400, m: 2 }}>
+        <Card key={listing.id} sx={{ width: 400, m: 2 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {listing.title}
@@ -50,7 +51,7 @@ const Listing = () => {
           </CardContent>
           <CardActions>
             <ModalPopUp />
-            <Link href={"/specificListing/"+listing.id}>
+            <Link href={`/specificListing/${listing.id}`}>
               <Button variant="outlined" sx={{ ml: 1 }}>
                 Learn More
               </Button>

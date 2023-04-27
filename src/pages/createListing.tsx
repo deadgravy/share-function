@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, TextField, Typography } from '@mui/material';
 import DivComponent from '../components/styledDiv';
 import { useState } from 'react';
-import { Listing } from '../types/listing';
+import type { IListing } from '../types/listing';
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
-const CreateListing = (listing: Listing) => {
+const CreateListing = (listing: IListing): EmotionJSX.Element => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -25,7 +27,7 @@ const CreateListing = (listing: Listing) => {
               variant="outlined"
               name="productName"
               type="text"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => { setTitle(e.target.value); }}
               value={listing.title}
               sx={{ width: '50%', m: 1 }}
             />
@@ -37,7 +39,7 @@ const CreateListing = (listing: Listing) => {
               variant="outlined"
               name="productDesc"
               type="text"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => { setDescription(e.target.value); }}
               value={listing.description}
               sx={{ width: '50%', m: 1 }}
             />
@@ -49,7 +51,7 @@ const CreateListing = (listing: Listing) => {
               variant="outlined"
               name="productPrice"
               type="text"
-              onChange={(e) => setPrice(Number(e.target.value))}
+              onChange={(e) => { setPrice(Number(e.target.value)); }}
               value={listing.price}
               sx={{ width: '50%', m: 1 }}
             />
