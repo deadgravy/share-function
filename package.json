@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prisma": "prisma db push && prisma generate && prisma db seed",
+    "postinstall": "prisma db push && prisma generate && prisma db seed",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -42,6 +42,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^29.5.0",
     "prettier": "^2.8.7",
     "prisma": "^4.13.0",
     "ts-node": "^10.9.1",

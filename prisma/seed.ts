@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prismaClient: PrismaClient = new PrismaClient();
 
-const main = async () => {
+const main = async (): Promise<void> => {
   console.log("Clearing database...");
 
   await Promise.allSettled([
@@ -25,7 +25,7 @@ const main = async () => {
 
   const listing2 = await prismaClient.listings.create({
     data: {
-      name: "Selling metal rod",
+      name: "Selling metal rods",
       price: 200.02,
     },
   });
