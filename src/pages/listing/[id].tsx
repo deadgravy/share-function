@@ -4,18 +4,22 @@ import type { IListing } from '@/types/listing';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { Box, Card, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-
-const data: IListing = {
-  id: 1,
-  title: 'Listing 1',
-  description: 'Metal bar description 1',
-  price: 400,
-};
+import { useQuery } from 'react-query';
+import axios from '@/utils/axios';
 
 const Listing = (): EmotionJSX.Element => {
+
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
+
+  const { data } = useQuery(
+    'get_all_listings',
+    async () => {
+      return await axios.get(`/listings/${(id as string)}`);
+    }
+  );
+
   return (
     <Box
       sx={{
@@ -32,13 +36,13 @@ const Listing = (): EmotionJSX.Element => {
               variant="h5"
               sx={{ fontWeight: 'medium', textAlign: 'left', ml: 20, mb: 2 }}
             >
-              {data.title}
+              {data.data.name}
             </Typography>
             <Typography
               variant="h5"
               sx={{ fontWeight: 'bold', textAlign: 'left', ml: 20, mb: 2 }}
             >
-              S${data.price}
+              S${data.data.price}
             </Typography>
             <Typography
               variant="h5"
@@ -50,7 +54,7 @@ const Listing = (): EmotionJSX.Element => {
               variant="body1"
               sx={{ fontWeight: 'regular', textAlign: 'left', mx: 20, mb: 2 }}
             >
-              {data.description}
+              {data.data.description}
             </Typography>
             <ModalPopUp />
           </DivComponent>

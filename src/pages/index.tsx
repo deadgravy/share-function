@@ -21,6 +21,7 @@ const Home = (): EmotionJSX.Element => {
     }
   );
 
+
   return (
     <DivComponent>
       <Link href="/create-listing">

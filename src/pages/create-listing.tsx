@@ -3,13 +3,30 @@ import DivComponent from '../components/styledDiv';
 import { useState } from 'react';
 import type { IListing } from '../types/listing';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const CreateListing = (listing: IListing): EmotionJSX.Element => {
+  const router = useRouter(); 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
 
+  const createListing = async (): Promise<void>  => {
+    const {data} =  await axios.post('/api/listings/new-listing', {name,description,price})
+
+    if (data === null) {  
+      await router.push("/404")
+      return
+    }
+
+    await router.push(`/listing/${data.id}`)
+  }
+  
+  
+
   return (
+    
     <main>
       <DivComponent className="flex min-h-screen flex-col items-center justify-between p-24">
         <form>
@@ -55,7 +72,7 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
                 <input type="file" name="productImage" accept='image/*' onChange={fileSelected}/>
             </div> */}
           <div>
-            <Button type="submit" variant="contained" sx={{ m: 2 }}>
+            <Button type="submit" variant="contained" sx={{ m: 2 }} onClick={createListing} >
               Submit
             </Button>
           </div>
