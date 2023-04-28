@@ -7,16 +7,19 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import axios from '@/utils/axios'
+import axios from '@/utils/axios';
 import { useQuery } from 'react-query';
 import type { IListing } from '@/types/listing';
 import ModalPopUp from '@/components/modal';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
 const Home = (): EmotionJSX.Element => {
-  const { data: listingData, error: listingError} = useQuery('get_all_listings', async () => {
-    return await axios.get('/listings');
-  });
+  const { data: listingData } = useQuery(
+    'get_all_listings',
+    async () => {
+      return await axios.get('/listings');
+    }
+  );
 
   return (
     <DivComponent>
@@ -32,7 +35,7 @@ const Home = (): EmotionJSX.Element => {
         >
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {listing.title}
+              {listing.name}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {listing.description}

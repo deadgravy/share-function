@@ -5,7 +5,7 @@ import type { IListing } from '../types/listing';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
 const CreateListing = (listing: IListing): EmotionJSX.Element => {
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
 
@@ -21,8 +21,8 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
               variant="outlined"
               name="productName"
               type="text"
-              onChange={(e) => { setTitle(e.target.value); }}
-              value={listing.title}
+              onChange={(e) => { setName(e.target.value); }}
+              value={listing.name}
               sx={{ width: '50%', m: 1 }}
             />
           </div>
