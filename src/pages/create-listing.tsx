@@ -7,26 +7,27 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 const CreateListing = (listing: IListing): EmotionJSX.Element => {
-  const router = useRouter(); 
+  const router = useRouter();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
 
-  const createListing = async (): Promise<void>  => {
-    const {data} =  await axios.post('/api/listings/new-listing', {name,description,price})
+  const createListing = async (): Promise<void> => {
+    const { data } = await axios.post('/api/listings/new-listing', {
+      name,
+      description,
+      price,
+    });
 
-    if (data === null) {  
-      await router.push("/404")
-      return
+    if (data === null) {
+      await router.push('/404');
+      return;
     }
 
-    await router.push(`/listing/${data.id}`)
-  }
-  
-  
+    await router.push(`/listing/${(data.id as string)}`);
+  };
 
   return (
-    
     <main>
       <DivComponent className="flex min-h-screen flex-col items-center justify-between p-24">
         <form>
@@ -38,7 +39,9 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
               variant="outlined"
               name="productName"
               type="text"
-              onChange={(e) => { setName(e.target.value); }}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               value={listing.name}
               sx={{ width: '50%', m: 1 }}
             />
@@ -50,7 +53,9 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
               variant="outlined"
               name="productDesc"
               type="text"
-              onChange={(e) => { setDescription(e.target.value); }}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
               value={listing.description}
               sx={{ width: '50%', m: 1 }}
             />
@@ -62,7 +67,9 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
               variant="outlined"
               name="productPrice"
               type="text"
-              onChange={(e) => { setPrice(Number(e.target.value)); }}
+              onChange={(e) => {
+                setPrice(Number(e.target.value));
+              }}
               value={listing.price}
               sx={{ width: '50%', m: 1 }}
             />
@@ -72,7 +79,13 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
                 <input type="file" name="productImage" accept='image/*' onChange={fileSelected}/>
             </div> */}
           <div>
-            <Button type="submit" variant="contained" sx={{ m: 2 }} onClick={createListing} >
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ m: 2 }}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={async () => { await createListing(); }}
+            >
               Submit
             </Button>
           </div>

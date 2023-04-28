@@ -1,6 +1,5 @@
 import ModalPopUp from '@/components/modal';
 import DivComponent from '@/components/styledDiv';
-import type { IListing } from '@/types/listing';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { Box, Card, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -8,17 +7,28 @@ import { useQuery } from 'react-query';
 import axios from '@/utils/axios';
 
 const Listing = (): EmotionJSX.Element => {
-
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
-  const { data } = useQuery(
-    'get_all_listings',
-    async () => {
-      return await axios.get(`/listings/${(id as string)}`);
-    }
-  );
+  const { data } = useQuery('get_all_listings', async () => {
+    return await axios.get(`/api/listings/${id as string}`);
+  },
+  {
+    enabled: router.isReady,
+  });
+
+  const getHashedUrl = (id: number): string => {
+    axios
+      .get(`/api/${id}`)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        return err;
+      });
+
+    return '';
+  };
 
   return (
     <Box
@@ -36,13 +46,13 @@ const Listing = (): EmotionJSX.Element => {
               variant="h5"
               sx={{ fontWeight: 'medium', textAlign: 'left', ml: 20, mb: 2 }}
             >
-              {data.data.name}
+              {data?.data.data.listing.name}
             </Typography>
             <Typography
               variant="h5"
               sx={{ fontWeight: 'bold', textAlign: 'left', ml: 20, mb: 2 }}
             >
-              S${data.data.price}
+              S${data?.data.data.listing.price}
             </Typography>
             <Typography
               variant="h5"
@@ -54,9 +64,9 @@ const Listing = (): EmotionJSX.Element => {
               variant="body1"
               sx={{ fontWeight: 'regular', textAlign: 'left', mx: 20, mb: 2 }}
             >
-              {data.data.description}
+              {data?.data.data.listing.description}
             </Typography>
-            <ModalPopUp />
+            <ModalPopUp link={getHashedUrl(parseInt((id as string), 10))}/>
           </DivComponent>
         </Card>
       </div>

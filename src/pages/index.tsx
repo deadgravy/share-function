@@ -14,13 +14,9 @@ import ModalPopUp from '@/components/modal';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
 const Home = (): EmotionJSX.Element => {
-  const { data: listingData } = useQuery(
-    'get_all_listings',
-    async () => {
-      return await axios.get('/listings');
-    }
-  );
-
+  const { data } = useQuery('get_all_listings', async () => {
+    return await axios.get('/api/listings');
+  });
 
   return (
     <DivComponent>
@@ -29,7 +25,7 @@ const Home = (): EmotionJSX.Element => {
           Create Listing
         </Button>
       </Link>
-      {listingData?.data.map((listing: IListing) => (
+      {data?.data?.data.listings.map((listing: IListing) => (
         <Card
           key={listing.id}
           sx={{ width: 400, m: 2, mr: 'auto', ml: 'auto' }}
@@ -46,7 +42,7 @@ const Home = (): EmotionJSX.Element => {
             </Typography>
           </CardContent>
           <CardActions>
-            <ModalPopUp />
+            <ModalPopUp id={listing.id} />
             <Link href={`/listing/${listing.id}`}>
               <Button variant="outlined" sx={{ ml: 1 }}>
                 Learn More

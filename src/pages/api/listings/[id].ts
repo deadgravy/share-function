@@ -21,7 +21,7 @@ const handler = async (
     const listing = await prisma.listings.findUnique({
       where: {
         id: parseInt(id as string, 10),
-      }
+      },
     });
 
     if (listing === null) {
