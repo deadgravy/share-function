@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, TextField, Typography } from '@mui/material';
 import DivComponent from '../components/styledDiv';
 import { useState } from 'react';
