@@ -27,13 +27,6 @@ const Listing = (): EmotionJSX.Element => {
     }
   };
 
-
-
-
-
-
-
-
   return (
     <Box
       sx={{

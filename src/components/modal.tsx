@@ -1,6 +1,6 @@
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { Button, Modal, Box } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ModalPopUpProps {
   id: any;
@@ -8,10 +8,13 @@ interface ModalPopUpProps {
 
 const ModalPopUp = ({ id }: ModalPopUpProps): EmotionJSX.Element => {
   const [shortenUrl, setUrl] = useState<string>("");
-  id.then((result: string) => {
-    console.log(result);
-    setUrl(result);
-  });
+
+  useEffect(() => {
+    id.then((result: string) => {
+      console.log(result);
+      setUrl(result);
+    });
+  }, [id]);
 
   const [open, setOpen] = useState(false);
   return (
