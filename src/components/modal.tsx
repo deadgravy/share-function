@@ -3,10 +3,16 @@ import { Button, Modal, Box } from '@mui/material';
 import { useState } from 'react';
 
 interface ModalPopUpProps {
-  id: number;
+  id: any;
 }
 
 const ModalPopUp = ({ id }: ModalPopUpProps): EmotionJSX.Element => {
+  const [shortenUrl, setUrl] = useState<string>("");
+  id.then((result: string) => {
+    console.log(result);
+    setUrl(result);
+  });
+
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -38,7 +44,7 @@ const ModalPopUp = ({ id }: ModalPopUpProps): EmotionJSX.Element => {
           }}
         >
           <h2 id="child-modal-title">Copy this link</h2>
-          <p id="child-modal-description">{link}</p>
+          <p id="child-modal-description">{shortenUrl}</p>
           <Button variant="contained" onClick={(): void => { setOpen(false); }}>
             Close
           </Button>

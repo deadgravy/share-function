@@ -13,22 +13,26 @@ const Listing = (): EmotionJSX.Element => {
   const { data } = useQuery('get_all_listings', async () => {
     return await axios.get(`/api/listings/${id as string}`);
   },
-  {
-    enabled: router.isReady,
-  });
+    {
+      enabled: router.isReady,
+    });
 
-  const getHashedUrl = (id: number): string => {
-    axios
-      .get(`/api/${id}`)
-      .then((res) => {
-        return res;
-      })
-      .catch((err) => {
-        return err;
-      });
-
-    return '';
+  const getHashedUrl = async (id: number): Promise<string> => {
+    try {
+      const res = await axios.get(`/api/${id}`);
+      // console.log(res.data.data.shortUrl)
+      return res.data.data.shortUrl;
+    } catch (err) {
+      return 'default url';
+    }
   };
+
+
+
+
+
+
+
 
   return (
     <Box
@@ -66,7 +70,7 @@ const Listing = (): EmotionJSX.Element => {
             >
               {data?.data.data.listing.description}
             </Typography>
-            <ModalPopUp link={getHashedUrl(parseInt((id as string), 10))}/>
+            <ModalPopUp id={getHashedUrl(parseInt((id as string), 10))} />
           </DivComponent>
         </Card>
       </div>
