@@ -1,12 +1,13 @@
 import { Button, TextField, Typography } from '@mui/material';
-import DivComponent from '../components/styledDiv';
 import { useState } from 'react';
-import type { IListing } from '../types/listing';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const CreateListing = (listing: IListing): EmotionJSX.Element => {
+import type { IListing } from '@/types/Listing';
+import DivComponent from '@/components/styledDiv';
+
+function CreateListing(listing: IListing): EmotionJSX.Element {
   const router = useRouter();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -93,6 +94,6 @@ const CreateListing = (listing: IListing): EmotionJSX.Element => {
       </DivComponent>
     </main>
   );
-};
+}
 
 export default CreateListing;

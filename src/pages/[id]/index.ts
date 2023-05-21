@@ -1,7 +1,9 @@
 import type { GetServerSideProps } from 'next';
 import prisma from '@/utils/prisma';
 
-const RedirectPage = (): null => null;
+function RedirectPage(): null {
+ return null
+}
 
 const getServerSideProps: GetServerSideProps = async (context) => {
   const { req } = context;

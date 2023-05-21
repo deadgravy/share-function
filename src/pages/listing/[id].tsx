@@ -6,20 +6,18 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import axios from '@/utils/axios';
 
-const Listing = (): EmotionJSX.Element => {
+function Listing(): EmotionJSX.Element {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useQuery('get_all_listings', async () => {
-    return await axios.get(`/api/listings/${id as string}`);
-  },
+  const { data } = useQuery('get_all_listings', async () => axios.get(`/api/listings/${id as string}`),
     {
       enabled: router.isReady,
     });
 
-  const getHashedUrl = async (id: number): Promise<string> => {
+  const getHashedUrl = async (listingId: number): Promise<string> => {
     try {
-      const res = await axios.get(`/api/${id}`);
+      const res = await axios.get(`/api/${listingId}`);
       // console.log(res.data.data.shortUrl)
       return res.data.data.shortUrl;
     } catch (err) {
@@ -69,6 +67,6 @@ const Listing = (): EmotionJSX.Element => {
       </div>
     </Box>
   );
-};
+}
 
 export default Listing;

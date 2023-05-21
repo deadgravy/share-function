@@ -9,14 +9,12 @@ import {
 } from '@mui/material';
 import axios from '@/utils/axios';
 import { useQuery } from 'react-query';
-import type { IListing } from '@/types/listing';
+import type { IListing } from '@/types/Listing';
 import ModalPopUp from '@/components/modal';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
-const Home = (): EmotionJSX.Element => {
-  const { data } = useQuery('get_all_listings', async () => {
-    return await axios.get('/api/listings');
-  });
+function Home(): EmotionJSX.Element {
+  const { data } = useQuery('get_all_listings', async () => axios.get('/api/listings'));
 
   return (
     <DivComponent>
@@ -53,6 +51,6 @@ const Home = (): EmotionJSX.Element => {
       ))}
     </DivComponent>
   );
-};
+}
 
 export default Home;

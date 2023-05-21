@@ -1,9 +1,3 @@
-const shortenUrl = (): string => {
-  const randomString = getRandomString(7);
-  const base62String = encodeToBase64(randomString).replace(/=/g, '');
-  return base62String;
-};
-
 const getRandomString = (length: number): string => {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,8 +11,12 @@ const getRandomString = (length: number): string => {
   return randomString;
 };
 
-const encodeToBase64 = (randString: string): string => {
-  return Buffer.from(randString).toString('base64');
-}
+const encodeToBase64 = (randString: string): string => Buffer.from(randString).toString('base64')
+
+const shortenUrl = (): string => {
+  const randomString = getRandomString(7);
+  const base62String = encodeToBase64(randomString).replace(/=/g, '');
+  return base62String;
+};
 
 export { shortenUrl, getRandomString, encodeToBase64 };
