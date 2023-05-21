@@ -8,6 +8,12 @@ const handler = async (
 ): Promise<void> => {
   const { id } = req.query; // Retrieve the listing ID from the URL query parameter
 
+  if (id === undefined) {
+    // If the listing ID is not present, return an error message in the response
+    res.status(400).json({ error: 'Missing listing ID' });
+    return;
+  }
+
   try {
     // Use Prisma Client to query the "listings" model and retrieve the listing
     const listing = await prisma.listings.findUnique({
@@ -44,7 +50,7 @@ const handler = async (
     return;
   } catch (error) {
     // If there's an error, return an error message in the response
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: (error as any).message });
   }
 };
 
