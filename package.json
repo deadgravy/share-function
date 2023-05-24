@@ -2,11 +2,14 @@
   "name": "share-function",
   "version": "0.1.0",
   "scripts": {
-    "postinstall": "prisma db push && prisma generate && prisma db seed",
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "cleaninstall": "pnpm install --frozen-lockfile",
+    "clean": "rimraf .next",
+    "dev": "next dev",
+    "lint": "next lint",
+    "postinstall": "pnpm prisma:seed",
+    "prisma:seed": "rimraf prisma/development.db && prisma db push && prisma db seed",
+    "start": "next start"
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"
@@ -16,6 +19,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
     "@mui/system": "^5.12.1",
     "@prisma/client": "^4.13.0",
@@ -45,9 +49,9 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^29.5.0",
     "prettier": "^2.8.7",
     "prisma": "^4.13.0",
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "5.0.4"
   }

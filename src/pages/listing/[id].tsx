@@ -1,72 +1,50 @@
-import ModalPopUp from '@/components/modal';
-import DivComponent from '@/components/styledDiv';
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
-import { Box, Card, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import axios from '@/utils/axios';
 
-function Listing(): EmotionJSX.Element {
+import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+
+import ModalPopUp from '@/components/Modal';
+import { axiosClient } from '@/utils';
+
+const Listing = (): EmotionJSX.Element => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useQuery('get_all_listings', async () => axios.get(`/api/listings/${id as string}`),
+  const { data } = useQuery(
+    'get_all_listings',
+    async () => axiosClient.get(`/api/listing/${id as string}`),
     {
       enabled: router.isReady,
-    });
-
-  const getHashedUrl = async (listingId: number): Promise<string> => {
-    try {
-      const res = await axios.get(`/api/${listingId}`);
-      // console.log(res.data.data.shortUrl)
-      return res.data.data.shortUrl;
-    } catch (err) {
-      return 'default url';
     }
-  };
+  );
 
   return (
     <Box
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
       }}
     >
-      <div>
-        <Card sx={{ borderRadius: 5, width: 1000 }}>
-          <DivComponent>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 'medium', textAlign: 'left', ml: 20, mb: 2 }}
-            >
-              {data?.data.data.listing.name}
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 'bold', textAlign: 'left', ml: 20, mb: 2 }}
-            >
-              S${data?.data.data.listing.price}
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 'medium', textAlign: 'left', ml: 20, mb: 2 }}
-            >
-              Description
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontWeight: 'regular', textAlign: 'left', mx: 20, mb: 2 }}
-            >
-              {data?.data.data.listing.description}
-            </Typography>
-            <ModalPopUp id={getHashedUrl(parseInt((id as string), 10))} />
-          </DivComponent>
-        </Card>
-      </div>
+      <Typography variant="h5" sx={{ fontWeight: 'medium', mb: 2 }}>
+        {data?.data.name}
+      </Typography>
+      <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+        S${data?.data.price}
+      </Typography>
+      <Typography variant="h5" sx={{ fontWeight: 'medium' }}>
+        Description
+      </Typography>
+      <Typography variant="body1" sx={{ fontWeight: 'regular' }}>
+        {data?.data.description}
+      </Typography>
+      <ModalPopUp id={parseInt(id as string, 10)} />
     </Box>
   );
-}
+};
 
 export default Listing;

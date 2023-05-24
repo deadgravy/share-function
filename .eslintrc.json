@@ -16,6 +16,7 @@
     "no-plusplus": "off",
     "@next/next/no-html-link-for-pages": "error",
     "react/destructuring-assignment": "off",
+    "react/function-component-definition": "off",
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/consistent-type-definitions": "off"
   }

@@ -1,5 +1,6 @@
-import prisma from '@/utils/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+import prisma from '@/utils/prisma';
 
 interface ResponseBody {
   name: string;
@@ -12,14 +13,14 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   if (req.method !== 'POST') {
-    res.status(405).json({ message: 'Method not allowed' });
+    res.status(405).json({ error: 'Method not allowed' });
     return;
   }
 
   const { name, description, price }: ResponseBody = req.body;
 
   try {
-    const { id } = await prisma.listings.create({
+    const { id } = await prisma.listing.create({
       data: {
         name,
         description,
@@ -27,7 +28,7 @@ const handler = async (
       },
     });
 
-    res.status(201).json({ data: { id } });
+    res.status(201).json(id);
   } catch (error) {
     res.status(500).json({ error: (error as any).message });
   }

@@ -1,18 +1,15 @@
 import type { GetServerSideProps } from 'next';
+
 import prisma from '@/utils/prisma';
 
-function RedirectPage(): null {
- return null
-}
+const RedirectPage = (): null => null;
 
 const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const inputUrl = req.url;
-  const searchUrl = inputUrl?.substring(1);
+  const { query } = context;
 
-  const listing = await prisma.listings.findUnique({
+  const listing = await prisma.listing.findUnique({
     where: {
-      hashed_url: searchUrl as string,
+      hashedUrl: query.id as string,
     },
   });
 
@@ -25,7 +22,7 @@ const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {},
     redirect: {
-      destination: `http://localhost:3000/listing/${listing.id}`,
+      destination: `${process.env.FRONTEND_URL}/listing/${listing.id}`,
     },
   };
 };
