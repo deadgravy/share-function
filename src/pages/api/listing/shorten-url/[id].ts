@@ -55,7 +55,7 @@ const handler = async (
       // Construct the complete URL with the hashed URL appended to the base URL
       const shortUrl = `${process.env.FRONTEND_URL}/${hashedUrl}`;
       // Return the shortened URL value in the response
-      res.status(200).json({ data: { shortUrl } });
+      res.status(200).json({ hash: hashedUrl, shortUrl });
       return;
     }
 

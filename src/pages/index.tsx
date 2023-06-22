@@ -21,8 +21,8 @@ const Home = (): EmotionJSX.Element => {
 
   return (
     <Box sx={{ mt: '4rem' }}>
-      <Button variant="outlined" href="/create-listing">
-        Create Listing
+      <Button variant="outlined" href="/new-listing">
+        Create New Listing
       </Button>
       <Box
         sx={{

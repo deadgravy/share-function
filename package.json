@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "next build",
-    "cleaninstall": "pnpm install --frozen-lockfile",
+    "ci": "pnpm install --frozen-lockfile",
     "clean": "rimraf .next",
     "dev": "next dev",
     "lint": "next lint",
